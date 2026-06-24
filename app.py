@@ -1,12 +1,20 @@
-# Heart Disease Prediction
 import streamlit as st
 import pickle
-import numpy as np
+import os
 
-with open("model.pkl", "rb") as file:
-    model = pickle.load(file)
+st.title("Heart Disease Prediction")
 
-st.title("Machine Learning Prediction App")
+try:
+    with open("model.pkl", "rb") as file:
+        model = pickle.load(file)
+
+    st.success("Model loaded successfully!")
+
+except FileNotFoundError:
+    st.error(
+        f"model.pkl not found.\n\nFiles in current directory:\n{os.listdir('.')}"
+    )
+    st.stop()
 
 feature1 = st.number_input("Feature 1")
 feature2 = st.number_input("Feature 2")
