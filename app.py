@@ -1,20 +1,10 @@
 import streamlit as st
 import pickle
-import os
+
+with open("heart_model.pkl", "rb") as file:
+    model = pickle.load(file)
 
 st.title("Heart Disease Prediction")
-
-try:
-    with open("model.pkl", "rb") as file:
-        model = pickle.load(file)
-
-    st.success("Model loaded successfully!")
-
-except FileNotFoundError:
-    st.error(
-        f"model.pkl not found.\n\nFiles in current directory:\n{os.listdir('.')}"
-    )
-    st.stop()
 
 feature1 = st.number_input("Feature 1")
 feature2 = st.number_input("Feature 2")
